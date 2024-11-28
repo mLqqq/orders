@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Обновление</title>
+</head>
+<body>
+    <header>
+        <a href="index.html">Главная</a>
+        <a href="add.html">Добавление</a>
+        <a href="update.html">Обновление</a>
+        <a href="stat.html">Статистика</a>
+    </header>
+    <main>
+        <form>
+            <div >
+                <input id="id" type="text" placeholder="Айди"/>
+            </div>
+            <div >
+                <input id="view" type="text" placeholder="Тип техники"/>
+            </div>
+            <div>
+                <input id = "model" type="text" placeholder="Модель"/>
+            </div>
+            <div>
+                <input id="description" type="text" placeholder="Описание"/>
+            </div>
+            <div>
+                <input id="fullName" type="text" placeholder="ФИО"/>
+            </div>
+            <div>
+                <input id="phone" type="text" placeholder="Номер"/>
+            </div>
+            <div>
+                <input id="master" type="text" placeholder="Мастер"/>
+            </div>
+            <div>
+                <input id="comment" type="text" placeholder="Комментарий"/>
+            </div>
+            <div>
+                <input id="status" type="text" placeholder="Статус"/>
+            </div>
+            <div >
+                <input id="send" type="button" value="Отправить"/>
+            </div>
+        </form>
+    </main>
+    <script>
+        var send = document.getElementById("send");
+        send.addEventListener("click",UpdateOrder);     
+        async function UpdateOrder() 
+        {
+            var id = document.getElementById("id").value;
+            var view = document.getElementById("view").value;
+            var model = document.getElementById("model").value;
+            var description = document.getElementById("description").value;
+            var fullName = document.getElementById("fullName").value;
+            var phone = document.getElementById("phone").value;
+            var master = document.getElementById("master").value;
+            var comment = document.getElementById("comment").value;
+            var status = parseInt(document.getElementById("status").value, 10);
+
+            var headers = {"Content-Type": "application/json" };
+            var body = JSON.stringify
+            ({
+                id : id,
+                view: view,
+                model : model,
+                description : description,
+                fullName : fullName,
+                phone : phone,
+                master : master,
+                comment : comment,
+                status : status
+            });            
+            var response = await fetch(`https://localhost:7216/order/update/${id}`, {method: "PUT", headers : headers, body : body});
+            if (response) {
+            var message = await response.json();
+                alert(message);
+            }
+        }
+    </script>   
+</body>
+</html>

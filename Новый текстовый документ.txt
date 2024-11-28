@@ -1,0 +1,2 @@
+Зайти в папку WebApplication1 и запустить Progream.cs
+Запустить фрондент  через Go Live
